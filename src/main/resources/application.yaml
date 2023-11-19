@@ -1,5 +1,11 @@
-spring:
-  security:
-    user:
-      name: ramesh
-      password: 123456
+#spring:
+#  security:
+#    user:
+#      name: ramesh
+#      password: 123456
+
+
+server:
+  port: 8008
+  servlet:
+    context-path: /spring-security/api/
