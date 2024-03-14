@@ -1,7 +1,10 @@
 package com.ramesh.security.api.configure;
 
+import com.ramesh.security.api.service.LoginUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -34,23 +37,20 @@ public class SpringSecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails userDetails = User.withDefaultPasswordEncoder()
-                .username("ramesh")
-                .password("123456")
-                .roles("USER")
-                .build();
-
-        UserDetails adminUserDetails = User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("admin@password")
-                .roles("ADMIN", "USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(adminUserDetails,userDetails);
+        return new LoginUserDetailsService();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailsService());
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return authenticationProvider;
     }
 }
