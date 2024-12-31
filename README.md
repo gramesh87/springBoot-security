@@ -12,3 +12,6 @@ Branch Names
 
 3. [FormLogin/MethodLevelAuthorization](https://github.com/gramesh87/springBoot-security/tree/FormLogin/MethodLevelAuthorization)
    - Authenticate and secure the end points with role base using Method level authorization. Use `@PreAuthorize()` annotation, `hasAuthority('ROLE_ADMIN')`, `hasRole('ADMIN')` are parameters to the annotation.
+
+4. [FormLogin/JdbcAuthentication](https://github.com/gramesh87/springBoot-security/tree/FormLogin/JdbcAuthentication)
+   - Authenticate a User by querying the date from the DB. Here User details like username and password are saved in the MySQL db, verify them using `AuthenticationProvider` bean and `DaoAuthenticationProvider` class.  
